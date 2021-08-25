@@ -5,6 +5,6 @@ namespace Shop.Brokers.Storages
 {
     public partial interface IStorageBroker
     {
-        ValueTask<Product> InsertProduct(Product product);  
+        ValueTask<Product> InsertProductAsync(Product product);  
     }
 }

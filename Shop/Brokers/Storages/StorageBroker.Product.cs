@@ -9,7 +9,7 @@ namespace Shop.Brokers.Storages
     {
         public DbSet<Product> Products { get; set; }
 
-        public async ValueTask<Product> InsertProduct(Product product)
+        public async ValueTask<Product> InsertProductAsync(Product product)
         {
             EntityEntry<Product> entityEntry = await this.Products.AddAsync(product);
             await this.SaveChangesAsync();
