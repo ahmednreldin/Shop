@@ -22,7 +22,8 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             Product expectedProduct = storageProduct;
 
             this.storageBrokerMock.Setup(
-                broker => broker.InsertProductAsync(storageProduct));
+                broker => broker.InsertProductAsync(inputProduct))
+                .ReturnsAsync(storageProduct);
 
             // When
             Product actualProduct =
