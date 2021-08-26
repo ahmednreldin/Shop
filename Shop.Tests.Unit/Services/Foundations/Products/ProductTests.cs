@@ -34,7 +34,8 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 OnProperty(product => product.Id).Use(Guid.NewGuid()).
                 OnProperty(product => product.Name).Use(GetRandomName(NameStyle.FirstName)).
                 OnProperty(product => product.Salery).Use(GetRandomNumber()).
-                OnProperty(product => product.ImageUrl).Use(GetRandomMessage());
+                OnProperty(product => product.ImageUrl).Use(GetRandomMessage()).
+                OnProperty(product => product.Description).Use(GetRandomMessage());
             return filler;
         }
 

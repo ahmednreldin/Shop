@@ -38,5 +38,6 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
+
     }
 }
