@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Brokers.Storages;
+using Shop.Web.Services.Fondations.FileManager;
 using Shop.Web.Services.Fondations.Products;
 
 namespace Shop
@@ -21,7 +22,8 @@ namespace Shop
             services.AddControllersWithViews();
             services.AddDbContext<StorageBroker>();
             services.AddScoped<IStorageBroker, StorageBroker>();
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IFileManager, FileManager>();
          }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
