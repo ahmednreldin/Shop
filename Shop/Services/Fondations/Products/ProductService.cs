@@ -1,10 +1,11 @@
 ﻿using Shop.Brokers.Storages;
 using Shop.Models.Products;
+using Shop.Web.Models.Products.Exceptions;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Services.Fondations.Products
 {
-    public class ProductService : IProductService
+    public partial class ProductService : IProductService
     {
         private readonly IStorageBroker storageBroker;
 
@@ -12,8 +13,20 @@ namespace Shop.Web.Services.Fondations.Products
         {
             this.storageBroker = storageBroker;
         }
-        public  async ValueTask<Product> AddProductAsync(Product product) =>
-            await this.storageBroker.InsertProductAsync(product);
+        public async ValueTask<Product> AddProductAsync(Product product)
+        {
+            try
+            {
+                ValidateProductOnCreate(product);
+                return await this.storageBroker.InsertProductAsync(product);
+            }
+            catch(NullProductException nullProductException)
+            {
+                throw new ProductValidationException(nullProductException);
+            }
+
+         
+        }
            
     }
 }

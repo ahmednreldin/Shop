@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using Shop.Models.Products;
+using Shop.Web.Models.Products.Exceptions;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,7 +27,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 this.productService.AddProductAsync(nullProduct);
 
             // Then
-            Assert.ThrowsAsync<ProductValidationException>(() =>
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
                addProductTask.AsTask()
             );
 
