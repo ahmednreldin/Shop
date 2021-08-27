@@ -15,7 +15,14 @@ namespace Shop.Web.Services.Fondations.Products
             {
                 case null:
                     throw new NullProductException();
+                 case { } when IsInvalid(product.Id):
+                    throw new InvalidProductException(
+                        parameterName:nameof(product.Id),
+                        parameterValue: product.Id
+                        );
             }
         }
+
+        private bool IsInvalid(Guid id) => id == Guid.Empty;
     }
 }

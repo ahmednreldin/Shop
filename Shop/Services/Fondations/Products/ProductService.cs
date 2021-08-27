@@ -24,6 +24,10 @@ namespace Shop.Web.Services.Fondations.Products
             {
                 throw new ProductValidationException(nullProductException);
             }
+            catch(InvalidProductException invalidProductException)
+            {
+                throw new ProductValidationException(invalidProductException);
+            }
 
          
         }
