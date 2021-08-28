@@ -29,7 +29,6 @@ namespace Shop.Web.Services.Fondations.Products
                 throw new ProductValidationException(invalidProductException);
             }
 
-         
         }
            
     }

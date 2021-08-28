@@ -97,6 +97,50 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
   
+        [Fact]
+        public async void ShouldThrowValidationExceptionWhenDescriptionIsInvalidAsync()
+        {
+            // Given
+            Product randomProduct = CreateRandomProduct();
+            Product inputProduct = randomProduct;
+            inputProduct.Description = default;
+
+            var invalidProductInputException = new InvalidProductException(
+                parameterName: nameof(inputProduct.Description),
+                parameterValue: inputProduct.Description);
+
+            var expectedProductValidationException = 
+                new ProductValidationException(invalidProductInputException);
+
+            // When
+            ValueTask<Product> addProductTask = 
+                this.productService.AddProductAsync(inputProduct);
+
+            // Then 
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
+            addProductTask.AsTask());
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertProductAsync(inputProduct), Times.Never());
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+        [Fact]
+        public async void ShouldThrowValidationExceptionWhenImageUrlIsInvalid()
+        {
+
+        }
+        [Fact]
+        public async void ShouldThrowValidationExceptionWhenSaleryIsInvalid()
+        {
+
+
+        }
+        [Fact]
+        public async void ShouldThrowValidationExceptionWhenProductIsAlreadyExist()
+        {
+
+        }
 
     }
 }
