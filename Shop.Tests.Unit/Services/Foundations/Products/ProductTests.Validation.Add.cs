@@ -183,6 +183,36 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
         [Fact]
         public async void ShouldThrowValidationExceptionWhenProductIsAlreadyExist()
         {
+            // Given
+            Product randomProduct = CreateRandomProduct();
+            Product alreadyExistProduct = randomProduct;
+            string randomMassage = GetRandomMessage();
+            string exceptionMessage = randomMassage;
+            var duplicatekeyException = new DuplicateKeyException(exceptionMessage);
+
+            var alreadyExistProductException = 
+                new AlreadyExistsProductException(duplicatekeyException);
+
+            var excpectedProductValidationException =
+                new ProductValidationException(alreadyExistProductException);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.InsertProductAsync(alreadyExistProduct))
+                .ThrowsAsync(duplicatekeyException);
+
+            // When 
+            ValueTask<Product> addProductTask =
+                this.productService.AddProductAsync(alreadyExistProduct);
+
+            // Then 
+            await Assert.ThrowsAsync<ProductValidationException>(()=>
+                addProductTask.AsTask());
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.InsertProductAsync(alreadyExistProduct),
+                Times.Once());
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
 
         }
 
