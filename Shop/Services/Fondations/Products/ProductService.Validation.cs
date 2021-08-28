@@ -33,7 +33,7 @@ namespace Shop.Web.Services.Fondations.Products
             }
         }
 
-        private bool IsInvalid(string description) => string.IsNullOrEmpty(description);
+        private bool IsInvalid(string input) => string.IsNullOrEmpty(input);
 
         private bool IsInvalid(Guid id) => id == Guid.Empty;
     }
