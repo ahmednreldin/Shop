@@ -128,7 +128,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
         [Fact]
         public async void ShouldThrowValidationExceptionWhenImageUrlIsInvalid()
         {
-            //  Given
+            // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
             inputProduct.ImageUrl = default;

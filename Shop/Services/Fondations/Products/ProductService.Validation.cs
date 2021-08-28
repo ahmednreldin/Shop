@@ -25,10 +25,10 @@ namespace Shop.Web.Services.Fondations.Products
                     throw new InvalidProductException(
                         parameterName: nameof(product.Description),
                         parameterValue: product.Description);
-                /*case { } when IsInvalid(product.ImageUrl):
+                case { } when IsInvalid(product.ImageUrl):
                     throw new InvalidProductException(
                         parameterName: nameof(product.ImageUrl),
-                        parameterValue: product.ImageUrl);*/
+                        parameterValue: product.ImageUrl);
                        
             }
         }
