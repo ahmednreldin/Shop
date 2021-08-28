@@ -1,6 +1,7 @@
 ﻿using Shop.Brokers.Storages;
 using Shop.Models.Products;
 using Shop.Web.Models.Products.Exceptions;
+using System;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Services.Fondations.Products
@@ -22,14 +23,25 @@ namespace Shop.Web.Services.Fondations.Products
             }
             catch(NullProductException nullProductException)
             {
-                throw new ProductValidationException(nullProductException);
+                throw CreateValidationException(nullProductException);
             }
-            catch(InvalidProductException invalidProductException)
+            catch (InvalidProductException invalidProductException)
             {
-                throw new ProductValidationException(invalidProductException);
+                throw CreateValidationException(invalidProductException);
+            }
+            catch (DuplicateKeyException duplicateKeyException)
+            {
+                var alreadyExistsProductException =
+                    new AlreadyExistsProductException(duplicateKeyException);
+                throw CreateValidationException(alreadyExistsProductException);
             }
 
         }
-           
+
+        private static ProductValidationException CreateValidationException(Exception exception)
+        {
+            var productValidationException = new ProductValidationException(exception);
+            return productValidationException; 
+        }
     }
 }

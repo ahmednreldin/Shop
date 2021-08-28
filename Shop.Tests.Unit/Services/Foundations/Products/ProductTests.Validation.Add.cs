@@ -37,7 +37,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
         [Fact]
-        public async void ShouldThrowValidationExceptionOnAddWhenIdIsInvalidAsync()
+        public async void ShouldThrowValidationExceptionOnAddWhenProductIdIsInvalidAsync()
         {
             // Given
             Product randomProduct = CreateRandomProduct();
@@ -68,13 +68,16 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-        [Fact]
-        public void ShouldThrowValidationExceptionWhenNameIsInvalid()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("   ")]
+        public void ShouldThrowValidationExceptionWhenNameIsInvalid(string invalidProductName)
         {
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Name = default;
+            inputProduct.Name = invalidProductName;
 
             var invalidProductInputException = new InvalidProductException(
                 parameterName: nameof(inputProduct.Name),
@@ -153,13 +156,17 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-        [Fact]
-        public async void ShouldThrowValidationExceptionWhenSaleryIsInvalid()
+        [Theory]
+        [InlineData(double.MaxValue  + double.MaxValue)]
+        [InlineData(double.NaN)]
+        [InlineData(double.NegativeInfinity)]
+        public async void ShouldThrowValidationExceptionWhenSaleryIsInvalid(
+            double invalidProductSalery)
         {
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Salery = double.NaN;
+            inputProduct.Salery = invalidProductSalery;
 
            var invalidProductInputException = new InvalidProductException(
                parameterName: nameof(inputProduct.Salery),

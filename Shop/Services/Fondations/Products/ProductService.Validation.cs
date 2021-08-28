@@ -19,6 +19,12 @@ namespace Shop.Web.Services.Fondations.Products
                     throw new InvalidProductException(
                         parameterName: nameof(product.Id),
                         parameterValue: product.Id);
+
+                case { } when IsInvalid(product.Name):
+                    throw new InvalidProductException(
+                        parameterName: nameof(product.Id),
+                        parameterValue: product.Name);
+
                 case { } when IsInvalid(product.Description):
                     throw new InvalidProductException(
                         parameterName: nameof(product.Description),
@@ -37,7 +43,7 @@ namespace Shop.Web.Services.Fondations.Products
         }
 
         private bool IsInvalid(double input) => !double.IsNormal(input);
-        private bool IsInvalid(string input) => string.IsNullOrEmpty(input);
+        private bool IsInvalid(string input) => string.IsNullOrWhiteSpace(input);
         private bool IsInvalid(Guid id) => id == Guid.Empty;
     }
 }
