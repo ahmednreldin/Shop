@@ -11,17 +11,29 @@ namespace Shop.Web.Services.Fondations.Products
     {
         public void ValidateProductOnCreate(Product product)
         {
-            switch(product)
+            switch (product)
             {
                 case null:
                     throw new NullProductException();
-                 case { } when IsInvalid(product.Id):
+
+                case { } when IsInvalid(product.Id):
                     throw new InvalidProductException(
-                        parameterName:nameof(product.Id),
-                        parameterValue: product.Id
-                        );
+                        parameterName: nameof(product.Id),
+                        parameterValue: product.Id);
+
+                case { } when IsInvalid(product.Description):
+                    throw new InvalidProductException(
+                        parameterName: nameof(product.Description),
+                        parameterValue: product.Description);
+                /*case { } when IsInvalid(product.ImageUrl):
+                    throw new InvalidProductException(
+                        parameterName: nameof(product.ImageUrl),
+                        parameterValue: product.ImageUrl);*/
+                       
             }
         }
+
+        private bool IsInvalid(string description) => string.IsNullOrEmpty(description);
 
         private bool IsInvalid(Guid id) => id == Guid.Empty;
     }
