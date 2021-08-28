@@ -146,7 +146,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             // Then 
             await Assert.ThrowsAsync<ProductValidationException>(() =>
-                     addProductTask.AsTask());
+                  addProductTask.AsTask());
 
             this.storageBrokerMock.Verify(broker =>
                 broker.InsertProductAsync(inputProduct), Times.Never());
@@ -159,7 +159,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Salery = default;
+            inputProduct.Salery = double.NaN;
 
            var invalidProductInputException = new InvalidProductException(
                parameterName: nameof(inputProduct.Salery),
@@ -173,11 +173,11 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                  this.productService.AddProductAsync(inputProduct);
 
            // Then
-           await Assert.ThrowsAsync<ProductValidationException>(() =>
-            addProductTask.AsTask());
+             await Assert.ThrowsAsync<ProductValidationException>(() =>
+                  addProductTask.AsTask());
 
             this.storageBrokerMock.Verify(broker =>
-                broker.InsertProductAsync(inputProduct), Times.Never());
+                broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
         [Fact]
