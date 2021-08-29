@@ -1,4 +1,5 @@
-﻿using Shop.Brokers.Storages;
+﻿using Microsoft.Data.SqlClient;
+using Shop.Brokers.Storages;
 using Shop.Models.Products;
 using Shop.Web.Models.Products.Exceptions;
 using System;
@@ -34,6 +35,10 @@ namespace Shop.Web.Services.Fondations.Products
                 var alreadyExistsProductException =
                     new AlreadyExistsProductException(duplicateKeyException);
                 throw CreateValidationException(alreadyExistsProductException);
+            }
+            catch(SqlException sqlException)
+            {
+                throw new ProductDepedencyException(sqlException);
             }
 
         }

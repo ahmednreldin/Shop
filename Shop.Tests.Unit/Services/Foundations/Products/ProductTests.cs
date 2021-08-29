@@ -1,8 +1,10 @@
-﻿using Moq;
+﻿using Microsoft.Data.SqlClient;
+using Moq;
 using Shop.Brokers.Storages;
 using Shop.Models.Products;
 using Shop.Web.Services.Fondations.Products;
 using System;
+using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
 using Xunit;
 namespace Shop.Tests.Unit.Services.Foundations.Products
@@ -19,7 +21,9 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 storageBroker: this.storageBrokerMock.Object);
             
         }
-        private static Exception GetSqlException() => new Exception();
+        private static SqlException GetSqlException() =>
+            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+
         private static Product CreateRandomProduct() => 
             CreateProductFiller().Create();
         private static double GetRandomNumber() => new DoubleRange().GetValue();

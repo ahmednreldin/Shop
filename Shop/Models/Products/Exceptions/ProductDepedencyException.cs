@@ -8,7 +8,7 @@ namespace Shop.Web.Models.Products.Exceptions
     public class ProductDepedencyException : Exception
     {
         public ProductDepedencyException(Exception innerException) : 
-            base(innerException.Message,innerException:innerException) { }
+            base("Service dependency error occured , contact support",innerException) { }
         
     }
 }

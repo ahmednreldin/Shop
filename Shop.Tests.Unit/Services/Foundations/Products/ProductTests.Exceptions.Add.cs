@@ -37,7 +37,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.storageBrokerMock.Verify( broker => 
                 broker.InsertProductAsync(It.IsAny<Product>())
-               ,Times.Never());
+               ,Times.Once());
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
