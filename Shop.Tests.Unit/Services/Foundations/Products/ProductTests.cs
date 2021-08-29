@@ -19,7 +19,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 storageBroker: this.storageBrokerMock.Object);
             
         }
-
+        private static Exception GetSqlException() => new Exception();
         private static Product CreateRandomProduct() => 
             CreateProductFiller().Create();
         private static double GetRandomNumber() => new DoubleRange().GetValue();
