@@ -35,11 +35,13 @@ namespace UnitTests.Services.Foundations.Products
         {
             var filler = new Filler<Product>();
             filler.Setup().
-                OnProperty(product => product.Id).Use(Guid.NewGuid()).
+                OnProperty(product => product.ProductId).Use(Guid.NewGuid()).
                 OnProperty(product => product.Name).Use(GetRandomName(NameStyle.FirstName)).
-                OnProperty(product => product.Salery).Use(GetRandomNumber()).
-                OnProperty(product => product.ImageUrl).Use(GetRandomMessage()).
-                OnProperty(product => product.Description).Use(GetRandomMessage());
+                OnProperty(product => product.Price).Use(GetRandomNumber()).
+                OnProperty(product => product.Picture).Use(GetRandomMessage()).
+                OnProperty(product => product.ShortDescription).Use(GetRandomMessage()).
+                OnProperty(product => product.FullDescription).Use(GetRandomMessage()).
+                OnProperty(product => product.Sku).Use(GetRandomMessage());
             return filler;
         }
 

@@ -12,30 +12,30 @@ namespace Application.Services.Fondations.Products
             {
                 case null:
                     throw new NullProductException();
-                case { } when IsInvalid(product.Id):
+                case { } when IsInvalid(product.ProductId):
                     throw new InvalidProductException(
-                        parameterName: nameof(product.Id),
-                        parameterValue: product.Id);
+                        parameterName: nameof(product.ProductId),
+                        parameterValue: product.ProductId);
 
                 case { } when IsInvalid(product.Name):
                     throw new InvalidProductException(
-                        parameterName: nameof(product.Id),
+                        parameterName: nameof(product.Name),
                         parameterValue: product.Name);
 
-                case { } when IsInvalid(product.Description):
+                case { } when IsInvalid(product.ShortDescription):
                     throw new InvalidProductException(
-                        parameterName: nameof(product.Description),
-                        parameterValue: product.Description);
+                        parameterName: nameof(product.ShortDescription),
+                        parameterValue: product.ShortDescription);
 
-                case { } when IsInvalid(product.ImageUrl):
+                case { } when IsInvalid(product.Picture):
                     throw new InvalidProductException(
-                        parameterName: nameof(product.ImageUrl),
-                        parameterValue: product.ImageUrl);
+                        parameterName: nameof(product.Picture),
+                        parameterValue: product.Picture);
 
-                case { } when IsInvalid(product.Salery):
+                case { } when IsInvalid(product.Price):
                     throw new InvalidProductException(
-                        parameterName: nameof(product.Salery),
-                        parameterValue: product.Salery);
+                        parameterName: nameof(product.Price),
+                        parameterValue: product.Price);
             }
         }
 

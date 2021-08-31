@@ -40,12 +40,12 @@ namespace UnitTests.Services.Foundations.Products
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Id = default;
+            inputProduct.ProductId = default;
 
             var invalidProductInputException =
                 new InvalidProductException(
-                    parameterName: nameof(inputProduct.Id),
-                    parameterValue: inputProduct.Id
+                    parameterName: nameof(inputProduct.ProductId),
+                    parameterValue: inputProduct.ProductId
                     );
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
@@ -104,11 +104,11 @@ namespace UnitTests.Services.Foundations.Products
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Description = default;
+            inputProduct.ShortDescription = default;
 
             var invalidProductInputException = new InvalidProductException(
-                parameterName: nameof(inputProduct.Description),
-                parameterValue: inputProduct.Description);
+                parameterName: nameof(inputProduct.ShortDescription),
+                parameterValue: inputProduct.ShortDescription);
 
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
@@ -132,11 +132,11 @@ namespace UnitTests.Services.Foundations.Products
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.ImageUrl = default;
+            inputProduct.Picture = default;
 
             var invalidProductInputException = new InvalidProductException(
-                parameterName: nameof(inputProduct.Description),
-                parameterValue: inputProduct.Description);
+                parameterName: nameof(inputProduct.Picture),
+                parameterValue: inputProduct.Picture);
 
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
@@ -164,11 +164,11 @@ namespace UnitTests.Services.Foundations.Products
             // Given
             Product randomProduct = CreateRandomProduct();
             Product inputProduct = randomProduct;
-            inputProduct.Salery = invalidProductSalery;
+            inputProduct.Price = invalidProductSalery;
 
             var invalidProductInputException = new InvalidProductException(
-                parameterName: nameof(inputProduct.Salery),
-                parameterValue: inputProduct.Salery);
+                parameterName: nameof(inputProduct.Price),
+                parameterValue: inputProduct.Price);
 
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
