@@ -4,6 +4,9 @@ using Shop.Web.Models.Products;
 using Application.Services.Fondations.FileManager;
 using Application.Services.Fondations.Products;
 using System;
+using Domain.Models.Products.Exceptions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Threading.Tasks;
 
 namespace Shop.Web.Controllers
 {
@@ -28,15 +31,20 @@ namespace Shop.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(ProductViewModel ProductViewModel)
+        public async ValueTask<ActionResult<Product>> Create(ProductViewModel ProductViewModel)
         {
             try
             {
                 Product product = MapProductDTO(ProductViewModel);
-                productService.AddProductAsync(product);
+                await productService.AddProductAsync(product);
+                return RedirectToAction(nameof(Index));
             }
-            catch { }
-            return View(ProductViewModel);
+            catch(ProductValidationException productValidationException) 
+            {
+                ViewBag.Message = productValidationException.Message;
+                ViewBag.innerException = productValidationException.InnerException.Message;
+                return View();
+            }
         }
 
         private Product MapProductDTO(ProductViewModel ProductViewModel)
