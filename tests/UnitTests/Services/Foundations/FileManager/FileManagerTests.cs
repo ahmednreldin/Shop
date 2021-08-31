@@ -1,4 +1,4 @@
-﻿namespace Shop.Tests.Unit.Services.Foundations.FileManager
+﻿namespace UnitTests.Services.Foundations.FileManager
 {
     class FileManagerTests
     {

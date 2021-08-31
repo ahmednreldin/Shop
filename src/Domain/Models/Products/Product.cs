@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shop.Models.Products
+namespace Domain.Models.Products
 {
     public class Product
     {

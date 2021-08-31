@@ -1,7 +1,7 @@
-﻿using Shop.Models.Products;
+﻿using Domain.Models.Products;
 using System.Threading.Tasks;
 
-namespace Shop.Web.Services.Fondations.Products
+namespace Application.Services.Fondations.Products
 {
     public interface IProductService
     {

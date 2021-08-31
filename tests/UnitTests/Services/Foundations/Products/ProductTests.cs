@@ -1,11 +1,13 @@
 ﻿using Moq;
-using Shop.Brokers.Storages;
-using Shop.Models.Products;
-using Shop.Web.Services.Fondations.Products;
+using Application.Storages;
+using Domain.Models.Products;
+using Application.Services.Fondations.Products;
 using System;
 using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
-namespace Shop.Tests.Unit.Services.Foundations.Products
+using System.Data.SqlClient;
+
+namespace UnitTests.Services.Foundations.Products
 {
     public partial class ProductTests
     {

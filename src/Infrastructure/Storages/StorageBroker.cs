@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Shop.Brokers.Storages
+namespace Application.Storages
 {
     public partial class Storage : DbContext, IStorage
     {

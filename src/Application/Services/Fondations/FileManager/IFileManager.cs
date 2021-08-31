@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Shop.Web.Services.Fondations.FileManager
+namespace Application.Services.Fondations.FileManager
 {
     public interface IFileManager
     {

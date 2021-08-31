@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Models.Products;
+using Domain.Models.Products;
 using Shop.Web.Models.Products;
-using Shop.Web.Services.Fondations.FileManager;
-using Shop.Web.Services.Fondations.Products;
+using Application.Services.Fondations.FileManager;
+using Application.Services.Fondations.Products;
 
 namespace Shop.Web.Controllers
 {

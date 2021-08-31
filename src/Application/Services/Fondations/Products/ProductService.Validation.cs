@@ -1,8 +1,8 @@
-﻿using Shop.Models.Products;
-using Shop.Web.Models.Products.Exceptions;
+﻿using Domain.Models.Products;
+using Domain.Models.Products.Exceptions;
 using System;
 
-namespace Shop.Web.Services.Fondations.Products
+namespace Application.Services.Fondations.Products
 {
     public partial class ProductService
     {

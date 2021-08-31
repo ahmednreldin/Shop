@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
-namespace Shop.Web.Services.Fondations.FileManager
+namespace Application.Services.Fondations.FileManager
 {
     public class FileManager : IFileManager
     {

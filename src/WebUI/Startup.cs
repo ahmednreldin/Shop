@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shop.Brokers.Storages;
-using Shop.Web.Services.Fondations.FileManager;
-using Shop.Web.Services.Fondations.Products;
+using Application.Storages;
+using Application.Services.Fondations.FileManager;
+using Application.Services.Fondations.Products;
 
 namespace Shop
 {

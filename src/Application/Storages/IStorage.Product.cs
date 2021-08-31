@@ -1,7 +1,7 @@
-﻿using Shop.Models.Products;
+﻿using Domain.Models.Products;
 using System.Threading.Tasks;
 
-namespace Shop.Brokers.Storages
+namespace Application.Storages
 {
     public partial interface IStorage
     {

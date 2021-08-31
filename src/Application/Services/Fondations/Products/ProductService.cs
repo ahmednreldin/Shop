@@ -1,11 +1,11 @@
-﻿using Shop.Brokers.Storages;
-using Shop.Models.Products;
-using Shop.Web.Models.Products.Exceptions;
+﻿using Application.Storages;
+using Domain.Models.Products;
+using Domain.Models.Products.Exceptions;
 using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
-namespace Shop.Web.Services.Fondations.Products
+namespace Application.Services.Fondations.Products
 {
     public partial class ProductService : IProductService
     {

@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using Moq;
-using Shop.Models.Products;
+using Domain.Models.Products;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Shop.Tests.Unit.Services.Foundations.Products
+namespace UnitTests.Services.Foundations.Products
 {
     public partial class ProductTests
     {

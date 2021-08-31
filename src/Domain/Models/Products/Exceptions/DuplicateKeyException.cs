@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shop.Web.Models.Products.Exceptions
+namespace Domain.Models.Products.Exceptions
 {
     public class DuplicateKeyException : Exception
     {
