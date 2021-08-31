@@ -61,5 +61,6 @@ This layer is a single page application based on Angular 10 and ASP.NET Core 5. 
 
 ## Resources
 * [Clean Architecture-jasontaylor](https://github.com/jasontaylordev/CleanArchitecture)
+* [Clean Architecture-ardalis](https://github.com/ardalis/CleanArchitecture)
 * [Clean Architecture - Unclue bob ](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 * [nopCommerce](https://github.com/nopSolutions/nopCommerce)
