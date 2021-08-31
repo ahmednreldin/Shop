@@ -3,6 +3,7 @@ using Domain.Models.Products;
 using Shop.Web.Models.Products;
 using Application.Services.Fondations.FileManager;
 using Application.Services.Fondations.Products;
+using System;
 
 namespace Shop.Web.Controllers
 {
@@ -42,10 +43,14 @@ namespace Shop.Web.Controllers
         {
             return new Product
             {
+                ProductId = Guid.NewGuid(),
                 Name = ProductViewModel.Name,
-                Price = ProductViewModel.Salery,
-                ShortDescription = ProductViewModel.Description,
-                FullDescription = ProductViewModel.Description,
+                Price = ProductViewModel.Price,
+                ShortDescription = ProductViewModel.ShortDescription,
+                FullDescription = ProductViewModel.FullDescription,
+                Sku = ProductViewModel.Sku,
+                StockQuantity = ProductViewModel.StockQuantity,
+                ShowOnHomepage = ProductViewModel.ShowOnHomePage,
                 Picture = fileManager.SaveImage(ProductViewModel.ImageFile)
             };
         }

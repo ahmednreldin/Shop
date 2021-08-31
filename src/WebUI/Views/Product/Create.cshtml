@@ -20,14 +20,44 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                </div>
+
+    
+                <div class="form-group">
+                    <label asp-for="FullDescription" class="control-label"></label>
+                    <input asp-for="FullDescription" class="form-control" />
+                </div>
+
+                 <div class="form-group">
+                    <label asp-for="Sku" class="control-label"></label>
+                    <input asp-for="Sku" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="Salery" class="control-label"></label>
-                    <input asp-for="Salery" class="form-control" />
+                    <label asp-for="StockQuantity" class="control-label"></label>
+                    <input type="number" asp-for="StockQuantity" class="form-control" />
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input type="number" asp-for="Price" class="form-control" />
+                </div>
+
+               
+                  <label asp-for="ShowOnHomePage" class="control-label">Show on Home Page</label>
+                <div>
+                 <input type="radio" asp-for="ShowOnHomePage" value="No"  checked />
+                  <label for="ShowOnHomePage">No</label>
+                </div>
+
+                <div>
+                   <input type="radio" asp-for="ShowOnHomePage" value="Yes"  />
+                  <label asp-for="ShowOnHomePage" >Yes</label>
+                </div>
+
+
 
                 <div class="form-group">
                     <label asp-for="ImageFile" class="control-label"></label>
