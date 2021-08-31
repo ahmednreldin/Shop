@@ -27,25 +27,26 @@ namespace Shop.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(ProductDTO productDTO)
+        public IActionResult Create(ProductViewModel ProductViewModel)
         {
             try
             {
-                Product product = MapProductDTO(productDTO);
+                Product product = MapProductDTO(ProductViewModel);
                 productService.AddProductAsync(product);
             }
             catch { }
-            return View(productDTO);
+            return View(ProductViewModel);
         }
 
-        private Product MapProductDTO(ProductDTO productDTO)
+        private Product MapProductDTO(ProductViewModel ProductViewModel)
         {
             return new Product
             {
-                Name = productDTO.Name,
-                Salery = productDTO.Salery,
-                Description = productDTO.Description,
-                ImageUrl = fileManager.SaveImage(productDTO.ImageFile)
+                Name = ProductViewModel.Name,
+                Price = ProductViewModel.Salery,
+                ShortDescription = ProductViewModel.Description,
+                FullDescription = ProductViewModel.Description,
+                Picture = fileManager.SaveImage(ProductViewModel.ImageFile)
             };
         }
     }

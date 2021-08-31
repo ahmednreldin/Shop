@@ -2,7 +2,7 @@
 
 namespace Shop.Web.Models.Products
 {
-    public class ProductDTO
+    public class ProductViewModel
     {
         public string Name { get; set; }
         public string Description { get; set; }
