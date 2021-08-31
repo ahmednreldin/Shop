@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Application.Storages;
 using Application.Services.Fondations.FileManager;
 using Application.Services.Fondations.Products;
+using Infrastructure.Loggins;
+using Application.Loggins;
 
 namespace Shop
 {
@@ -23,7 +25,8 @@ namespace Shop
             services.AddDbContext<Storage>();
             services.AddScoped<IStorage, Storage>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IFileManager, FileManager>();
+            services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<ILogging, Logging>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
