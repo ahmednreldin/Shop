@@ -1,4 +1,4 @@
 ﻿namespace Shop.Brokers.Storages
 {
-    public partial interface IStorage {}
+    public partial interface IStorage { }
 }

@@ -34,8 +34,8 @@ namespace Shop.Web.Services.Fondations.Products
 
                 case { } when IsInvalid(product.Salery):
                     throw new InvalidProductException(
-                        parameterName:nameof(product.Salery),
-                        parameterValue: product.Salery);    
+                        parameterName: nameof(product.Salery),
+                        parameterValue: product.Salery);
             }
         }
 

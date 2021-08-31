@@ -11,9 +11,9 @@ namespace Shop
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) => 
+        public Startup(IConfiguration configuration) =>
             Configuration = configuration;
-      
+
 
         public IConfiguration Configuration { get; }
 
@@ -24,12 +24,12 @@ namespace Shop
             services.AddScoped<IStorage, Storage>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFileManager, FileManager>();
-         }
+        }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
-          
+
             app.UseStaticFiles();
 
             app.UseRouting();

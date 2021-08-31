@@ -26,7 +26,7 @@ namespace Shop.Web.Controllers
         {
             return View();
         }
-            [HttpPost]
+        [HttpPost]
         public IActionResult Create(ProductDTO productDTO)
         {
             try

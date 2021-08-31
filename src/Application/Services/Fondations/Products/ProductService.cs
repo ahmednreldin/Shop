@@ -22,7 +22,7 @@ namespace Shop.Web.Services.Fondations.Products
                 ValidateProductOnCreate(product);
                 return await this.Storage.InsertProductAsync(product);
             }
-            catch(NullProductException nullProductException)
+            catch (NullProductException nullProductException)
             {
                 throw CreateValidationException(nullProductException);
             }
@@ -46,7 +46,7 @@ namespace Shop.Web.Services.Fondations.Products
         private static ProductValidationException CreateValidationException(Exception exception)
         {
             var productValidationException = new ProductValidationException(exception);
-            return productValidationException; 
+            return productValidationException;
         }
     }
 }

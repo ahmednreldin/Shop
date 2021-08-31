@@ -1,8 +1,6 @@
-﻿using FluentAssertions;
-using Moq;
+﻿using Moq;
 using Shop.Models.Products;
 using Shop.Web.Models.Products.Exceptions;
-using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -12,7 +10,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
     {
 
         [Fact]
-       public async void ShouldThrowValidationExceptionOnAddWhenProductIsNullAsync()
+        public async void ShouldThrowValidationExceptionOnAddWhenProductIsNullAsync()
         {
             // Given 
             Product nullProduct = null;
@@ -44,10 +42,10 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             Product inputProduct = randomProduct;
             inputProduct.Id = default;
 
-            var invalidProductInputException = 
-                new InvalidProductException (
-                    parameterName : nameof(inputProduct.Id),
-                    parameterValue : inputProduct.Id
+            var invalidProductInputException =
+                new InvalidProductException(
+                    parameterName: nameof(inputProduct.Id),
+                    parameterValue: inputProduct.Id
                     );
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
@@ -58,9 +56,9 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
 
             // Then
-           await Assert.ThrowsAsync<ProductValidationException>(() =>
-               addProductTask.AsTask()
-            );
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
+                addProductTask.AsTask()
+             );
 
             this.storageBrokerMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()),
@@ -82,12 +80,12 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             var invalidProductInputException = new InvalidProductException(
                 parameterName: nameof(inputProduct.Name),
                 parameterValue: inputProduct.Name);
-            
+
             var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
 
             // When
-            ValueTask<Product> addProductTask = 
+            ValueTask<Product> addProductTask =
                 this.productService.AddProductAsync(inputProduct);
 
             // Then 
@@ -96,10 +94,10 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.storageBrokerMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
-            
+
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-  
+
         [Fact]
         public async void ShouldThrowValidationExceptionWhenDescriptionIsInvalidAsync()
         {
@@ -112,11 +110,11 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 parameterName: nameof(inputProduct.Description),
                 parameterValue: inputProduct.Description);
 
-            var expectedProductValidationException = 
+            var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
 
             // When
-            ValueTask<Product> addProductTask = 
+            ValueTask<Product> addProductTask =
                 this.productService.AddProductAsync(inputProduct);
 
             // Then 
@@ -157,7 +155,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
         [Theory]
-        [InlineData(double.MaxValue  + double.MaxValue)]
+        [InlineData(double.MaxValue + double.MaxValue)]
         [InlineData(double.NaN)]
         [InlineData(double.NegativeInfinity)]
         public async void ShouldThrowValidationExceptionWhenSaleryIsInvalid(
@@ -168,20 +166,20 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             Product inputProduct = randomProduct;
             inputProduct.Salery = invalidProductSalery;
 
-           var invalidProductInputException = new InvalidProductException(
-               parameterName: nameof(inputProduct.Salery),
-               parameterValue: inputProduct.Salery);
+            var invalidProductInputException = new InvalidProductException(
+                parameterName: nameof(inputProduct.Salery),
+                parameterValue: inputProduct.Salery);
 
-            var expectedProductValidationException = 
+            var expectedProductValidationException =
                 new ProductValidationException(invalidProductInputException);
 
             // When
             ValueTask<Product> addProductTask =
                  this.productService.AddProductAsync(inputProduct);
 
-           // Then
-             await Assert.ThrowsAsync<ProductValidationException>(() =>
-                  addProductTask.AsTask());
+            // Then
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
+                 addProductTask.AsTask());
 
             this.storageBrokerMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
@@ -197,7 +195,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
             string exceptionMessage = randomMassage;
             var duplicatekeyException = new DuplicateKeyException(exceptionMessage);
 
-            var alreadyExistProductException = 
+            var alreadyExistProductException =
                 new AlreadyExistsProductException(duplicatekeyException);
 
             var excpectedProductValidationException =
@@ -212,7 +210,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 this.productService.AddProductAsync(alreadyExistProduct);
 
             // Then 
-            await Assert.ThrowsAsync<ProductValidationException>(()=>
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
                 addProductTask.AsTask());
 
             this.storageBrokerMock.Verify(broker =>

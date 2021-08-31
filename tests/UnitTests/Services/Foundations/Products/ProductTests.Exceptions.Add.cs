@@ -1,10 +1,6 @@
 ﻿using Moq;
 using Shop.Models.Products;
 using Shop.Web.Models.Products.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,7 +9,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
     public partial class ProductTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnAddWhenSqlExceptionOccursAsync() 
+        public async Task ShouldThrowDependencyExceptionOnAddWhenSqlExceptionOccursAsync()
         {
             // Given
             Product randomProduct = CreateRandomProduct();
@@ -27,7 +23,7 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                 broker.InsertProductAsync(inputProduct)).ThrowsAsync(sqlException);
 
             // When
-            ValueTask<Product> productAddTask = 
+            ValueTask<Product> productAddTask =
                 this.productService.AddProductAsync(inputProduct);
 
             // Then
@@ -35,9 +31,9 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
                productAddTask.AsTask()
             );
 
-            this.storageBrokerMock.Verify( broker => 
-                broker.InsertProductAsync(It.IsAny<Product>())
-               ,Times.Once());
+            this.storageBrokerMock.Verify(broker =>
+               broker.InsertProductAsync(It.IsAny<Product>())
+               , Times.Once());
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }

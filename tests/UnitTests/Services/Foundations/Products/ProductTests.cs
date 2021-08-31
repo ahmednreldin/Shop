@@ -1,12 +1,10 @@
-﻿using Microsoft.Data.SqlClient;
-using Moq;
+﻿using Moq;
 using Shop.Brokers.Storages;
 using Shop.Models.Products;
 using Shop.Web.Services.Fondations.Products;
 using System;
 using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
-using Xunit;
 namespace Shop.Tests.Unit.Services.Foundations.Products
 {
     public partial class ProductTests
@@ -19,15 +17,15 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 
             this.productService = new ProductService(
                 Storage: this.storageBrokerMock.Object);
-            
+
         }
         private static SqlException GetSqlException() =>
             (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
-        private static Product CreateRandomProduct() => 
+        private static Product CreateRandomProduct() =>
             CreateProductFiller().Create();
         private static double GetRandomNumber() => new DoubleRange().GetValue();
-        private static string GetRandomName(NameStyle nameStyle) => 
+        private static string GetRandomName(NameStyle nameStyle) =>
             new RealNames(nameStyle).GetValue();
 
         private static string GetRandomMessage() => new MnemonicString().GetValue();
@@ -44,5 +42,5 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
         }
 
 
-    }   
+    }
 }
