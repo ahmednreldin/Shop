@@ -3,6 +3,7 @@ using Domain.Models.Products;
 using Domain.Models.Products.Exceptions;
 using System;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services.Fondations.Products
@@ -41,6 +42,11 @@ namespace Application.Services.Fondations.Products
                 throw new ProductDepedencyException(sqlException);
             }
 
+        }
+
+        public IQueryable<Product> RetrieveAllProducts()
+        {
+            throw new NotImplementedException();
         }
 
         private static ProductValidationException CreateValidationException(Exception exception)

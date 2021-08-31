@@ -3,6 +3,8 @@ using Moq;
 using Domain.Models.Products;
 using System.Threading.Tasks;
 using Xunit;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests.Services.Foundations.Products
 {
@@ -31,6 +33,30 @@ namespace UnitTests.Services.Foundations.Products
             this.storageBrokerMock.Verify(
                 broker => broker.InsertProductAsync(storageProduct),
                 times: Times.Once());
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+        [Fact]
+        public  void ShouldRetrieveAllProducts()
+        {
+            // Given
+            IQueryable<Product> randomProduct = CreateRandomProducts();
+            IQueryable<Product> storageProducts = randomProduct;
+            IQueryable<Product> expectedProducts = storageProducts;
+
+            this.storageBrokerMock.Setup(broker => 
+                broker.SelectAllProducts())
+                .Returns(storageProducts);
+
+            // When
+            IQueryable<Product> actualProducts = 
+                this.productService.RetrieveAllProducts();
+
+            // Then 
+            actualProducts.Should().BeEquivalentTo(expectedProducts);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectAllProducts(), Times.Once());
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }

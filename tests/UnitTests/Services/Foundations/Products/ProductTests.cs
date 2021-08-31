@@ -6,6 +6,7 @@ using System;
 using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace UnitTests.Services.Foundations.Products
 {
@@ -26,7 +27,12 @@ namespace UnitTests.Services.Foundations.Products
 
         private static Product CreateRandomProduct() =>
             CreateProductFiller().Create();
-        private static double GetRandomNumber() => new DoubleRange().GetValue();
+
+        private static IQueryable<Product> CreateRandomProducts() => 
+            CreateProductFiller().Create(GetRandomNumberInt()).AsQueryable();
+
+        private static int GetRandomNumberInt() => new IntRange().GetValue();
+        private static double GetRandomNumberDouble() => new DoubleRange().GetValue();
         private static string GetRandomName(NameStyle nameStyle) =>
             new RealNames(nameStyle).GetValue();
 
@@ -37,7 +43,7 @@ namespace UnitTests.Services.Foundations.Products
             filler.Setup().
                 OnProperty(product => product.ProductId).Use(Guid.NewGuid()).
                 OnProperty(product => product.Name).Use(GetRandomName(NameStyle.FirstName)).
-                OnProperty(product => product.Price).Use(GetRandomNumber()).
+                OnProperty(product => product.Price).Use(GetRandomNumberDouble()).
                 OnProperty(product => product.Picture).Use(GetRandomMessage()).
                 OnProperty(product => product.ShortDescription).Use(GetRandomMessage()).
                 OnProperty(product => product.FullDescription).Use(GetRandomMessage()).
