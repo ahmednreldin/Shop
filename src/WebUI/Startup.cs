@@ -20,8 +20,8 @@ namespace Shop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<StorageBroker>();
-            services.AddScoped<IStorageBroker, StorageBroker>();
+            services.AddDbContext<Storage>();
+            services.AddScoped<IStorage, Storage>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IFileManager, FileManager>();
          }

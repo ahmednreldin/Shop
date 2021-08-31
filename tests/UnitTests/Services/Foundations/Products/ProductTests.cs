@@ -11,14 +11,14 @@ namespace Shop.Tests.Unit.Services.Foundations.Products
 {
     public partial class ProductTests
     {
-        private readonly Mock<IStorageBroker> storageBrokerMock;
+        private readonly Mock<IStorage> storageBrokerMock;
         private readonly IProductService productService;
         public ProductTests()
         {
-            this.storageBrokerMock = new Mock<IStorageBroker>();
+            this.storageBrokerMock = new Mock<IStorage>();
 
             this.productService = new ProductService(
-                storageBroker: this.storageBrokerMock.Object);
+                Storage: this.storageBrokerMock.Object);
             
         }
         private static SqlException GetSqlException() =>

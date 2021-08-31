@@ -9,7 +9,7 @@ using Shop.Brokers.Storages;
 
 namespace Shop.Migrations
 {
-    [DbContext(typeof(StorageBroker))]
+    [DbContext(typeof(Storage))]
     [Migration("20210825155043_InitialCreate")]
     partial class InitialCreate
     {

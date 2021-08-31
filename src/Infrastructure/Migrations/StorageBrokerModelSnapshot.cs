@@ -8,7 +8,7 @@ using Shop.Brokers.Storages;
 
 namespace Shop.Migrations
 {
-    [DbContext(typeof(StorageBroker))]
+    [DbContext(typeof(Storage))]
     partial class StorageBrokerModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

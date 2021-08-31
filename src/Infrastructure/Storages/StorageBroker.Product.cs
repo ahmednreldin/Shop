@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Brokers.Storages
 {
-    public partial class StorageBroker
+    public partial class Storage
     {
         public DbSet<Product> Products { get; set; }
 

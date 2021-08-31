@@ -3,10 +3,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Shop.Brokers.Storages
 {
-    public partial class StorageBroker : DbContext,IStorageBroker
+    public partial class Storage : DbContext,IStorage
     {
         private readonly IConfiguration Configuration;
-        public StorageBroker(IConfiguration configuration)
+        public Storage(IConfiguration configuration)
         {
 
             this.Configuration = configuration; 

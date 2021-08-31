@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Brokers.Storages
 {
-    public partial interface IStorageBroker
+    public partial interface IStorage
     {
         ValueTask<Product> InsertProductAsync(Product product);  
     }

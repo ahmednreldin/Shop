@@ -1,26 +1,26 @@
-﻿using Microsoft.Data.SqlClient;
-using Shop.Brokers.Storages;
+﻿using Shop.Brokers.Storages;
 using Shop.Models.Products;
 using Shop.Web.Models.Products.Exceptions;
 using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Services.Fondations.Products
 {
     public partial class ProductService : IProductService
     {
-        private readonly IStorageBroker storageBroker;
+        private readonly IStorage Storage;
 
-        public ProductService(IStorageBroker storageBroker)
+        public ProductService(IStorage Storage)
         {
-            this.storageBroker = storageBroker;
+            this.Storage = Storage;
         }
         public async ValueTask<Product> AddProductAsync(Product product)
         {
             try
             {
                 ValidateProductOnCreate(product);
-                return await this.storageBroker.InsertProductAsync(product);
+                return await this.Storage.InsertProductAsync(product);
             }
             catch(NullProductException nullProductException)
             {
@@ -36,7 +36,7 @@ namespace Shop.Web.Services.Fondations.Products
                     new AlreadyExistsProductException(duplicateKeyException);
                 throw CreateValidationException(alreadyExistsProductException);
             }
-            catch(SqlException sqlException)
+            catch (SqlException sqlException)
             {
                 throw new ProductDepedencyException(sqlException);
             }
