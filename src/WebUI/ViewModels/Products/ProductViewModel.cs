@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Web.Models.Products
 {
     public class ProductViewModel
     {
+        
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }

@@ -11,5 +11,13 @@
     <div>
         @RenderBody()
     </div>
+
+
+      <div class="container">
+        @RenderBody()
+        <!-- Avoid ("sectionName") exception -->
+        @RenderSection("scripts", false);
+    </div>
+
 </body>
 </html>
