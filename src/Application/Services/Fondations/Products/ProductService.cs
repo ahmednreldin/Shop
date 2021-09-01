@@ -44,6 +44,11 @@ namespace Application.Services.Fondations.Products
 
         }
 
+        public ValueTask<Product> RetrieveProductById(Guid productId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<Product> RetrieveAllProducts()
         {
             IQueryable<Product> products = this.Storage.SelectAllProducts();

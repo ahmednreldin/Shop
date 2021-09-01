@@ -15,6 +15,10 @@ namespace Application.Storages
 
             return entityEntry.Entity;
         }
-        public IQueryable<Product> SelectAllProducts() => this.Products.AsQueryable();
+        public IQueryable<Product> SelectAllProducts() =>
+            this.Products.AsQueryable();
+
+        public ValueTask<Product> SelectProductById(Guid productId) =>
+            this.Products.FindAsync(productId);
     }
 }

@@ -57,6 +57,32 @@ namespace UnitTests.Services.Foundations.Products
 
             this.storageMock.VerifyNoOtherCalls();
         }
+        [Fact]
+        public void ShouldRetrieveProductById()
+        {
+            // Given
+            Product randomProduct = CreateRandomProduct();
+            Product storageProduct = randomProduct;
+            Product expectedProduct = storageProduct;
+            Guid productId = expectedProduct.ProductId;
+
+            this.storageMock.Setup(storage =>
+            storage.SelectProductById(productId))
+                .ReturnsAsync(storageProduct);
+
+            // When
+            ValueTask<Product> actualProduct =
+                this.productService.RetrieveProductById(productId);
+
+            // Then 
+            actualProduct.Should().BeEquivalentTo(expectedProduct);
+
+            this.storageMock.Verify(storage =>
+            storage.SelectProductById(It.IsAny<Guid>()),
+              Times.Once());
+
+            this.storageMock.VerifyNoOtherCalls();
+        }
 
     }
 }

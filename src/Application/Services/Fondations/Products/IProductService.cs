@@ -1,12 +1,11 @@
 ﻿using Domain.Models.Products;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Services.Fondations.Products
 {
     public interface IProductService
     {
         ValueTask<Product> AddProductAsync(Product product);
+        ValueTask<Product> RetrieveProductById(Guid productId);
         IQueryable<Product> RetrieveAllProducts();
     }
 }
