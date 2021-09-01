@@ -1,11 +1,17 @@
 ﻿using Domain.Models.Products;
 using Domain.Models.Products.Exceptions;
-using System;
 
 namespace Application.Services.Fondations.Products
 {
     public partial class ProductService
     {
+        public void ValidateProductOnRetrieve(IQueryable<Product> products)
+        {
+            if (products.Count() == 0)
+            {
+                logging.LogWarning("No Products found in storage.");
+            }
+        }
         public void ValidateProductOnCreate(Product product)
         {
             switch (product)

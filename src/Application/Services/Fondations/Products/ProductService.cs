@@ -46,7 +46,9 @@ namespace Application.Services.Fondations.Products
 
         public IQueryable<Product> RetrieveAllProducts()
         {
-            return this.Storage.SelectAllProducts();
+            IQueryable<Product> products = this.Storage.SelectAllProducts();
+            ValidateProductOnRetrieve(products);
+            return products;
         }
 
         private static ProductValidationException CreateValidationException(Exception exception)
