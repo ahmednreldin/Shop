@@ -1,4 +1,5 @@
-﻿using Application.Storages;
+﻿using Application.Loggins;
+using Application.Storages;
 using Domain.Models.Products;
 using Domain.Models.Products.Exceptions;
 using System.Data.SqlClient;
@@ -8,10 +9,12 @@ namespace Application.Services.Fondations.Products
     public partial class ProductService : IProductService
     {
         private readonly IStorage Storage;
+        private readonly ILogging logging;
 
-        public ProductService(IStorage Storage)
+        public ProductService(IStorage Storage, ILogging logging)
         {
             this.Storage = Storage;
+            this.logging = logging;
         }
         public async ValueTask<Product> AddProductAsync(Product product)
         {

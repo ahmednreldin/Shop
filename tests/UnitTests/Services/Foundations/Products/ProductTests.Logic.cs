@@ -16,7 +16,7 @@ namespace UnitTests.Services.Foundations.Products
             Product storageProduct = inputProduct;
             Product expectedProduct = storageProduct;
 
-            this.storageBrokerMock.Setup(
+            this.storageMock.Setup(
                 broker => broker.InsertProductAsync(inputProduct))
                 .ReturnsAsync(storageProduct);
 
@@ -27,11 +27,11 @@ namespace UnitTests.Services.Foundations.Products
             // Then
             actualProduct.Should().BeEquivalentTo(expectedProduct);
 
-            this.storageBrokerMock.Verify(
+            this.storageMock.Verify(
                 broker => broker.InsertProductAsync(storageProduct),
                 times: Times.Once());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
         public void ShouldRetrieveAllProducts()
@@ -41,7 +41,7 @@ namespace UnitTests.Services.Foundations.Products
             IQueryable<Product> storageProducts = randomProduct;
             IQueryable<Product> expectedProducts = storageProducts;
 
-            this.storageBrokerMock.Setup(broker =>
+            this.storageMock.Setup(broker =>
                 broker.SelectAllProducts())
                 .Returns(storageProducts);
 
@@ -52,10 +52,10 @@ namespace UnitTests.Services.Foundations.Products
             // Then 
             actualProducts.Should().BeEquivalentTo(expectedProducts);
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.SelectAllProducts(), Times.Once());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
 
     }

@@ -19,7 +19,7 @@ namespace UnitTests.Services.Foundations.Products
             var expectedProductDependencyException =
                 new ProductDepedencyException(sqlException);
 
-            this.storageBrokerMock.Setup(broker =>
+            this.storageMock.Setup(broker =>
                 broker.InsertProductAsync(inputProduct)).ThrowsAsync(sqlException);
 
             // When
@@ -31,11 +31,11 @@ namespace UnitTests.Services.Foundations.Products
                productAddTask.AsTask()
             );
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                broker.InsertProductAsync(It.IsAny<Product>())
                , Times.Once());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
     }
 }

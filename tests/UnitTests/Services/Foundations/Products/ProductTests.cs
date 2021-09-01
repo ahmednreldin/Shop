@@ -1,25 +1,28 @@
-﻿using Moq;
+﻿using Application.Loggins;
+using Application.Services.Fondations.Products;
 using Application.Storages;
 using Domain.Models.Products;
-using Application.Services.Fondations.Products;
-using System;
+using Moq;
+using System.Data.SqlClient;
 using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
-using System.Data.SqlClient;
-using System.Linq;
 
 namespace UnitTests.Services.Foundations.Products
 {
     public partial class ProductTests
     {
-        private readonly Mock<IStorage> storageBrokerMock;
+        private readonly Mock<IStorage> storageMock;
+        private readonly Mock<ILogging> loggingMock;
         private readonly IProductService productService;
         public ProductTests()
         {
-            this.storageBrokerMock = new Mock<IStorage>();
+            this.storageMock = new Mock<IStorage>();
+            this.loggingMock = new Mock<ILogging>();
 
             this.productService = new ProductService(
-                Storage: this.storageBrokerMock.Object);
+                Storage: this.storageMock.Object,
+                logging: this.loggingMock.Object
+                );
 
         }
         private static SqlException GetSqlException() =>
@@ -28,7 +31,7 @@ namespace UnitTests.Services.Foundations.Products
         private static Product CreateRandomProduct() =>
             CreateProductFiller().Create();
 
-        private static IQueryable<Product> CreateRandomProducts() => 
+        private static IQueryable<Product> CreateRandomProducts() =>
             CreateProductFiller().Create(GetRandomNumberInt()).AsQueryable();
 
         private static int GetRandomNumberInt() => new IntRange().GetValue();

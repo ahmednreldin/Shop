@@ -1,7 +1,6 @@
-﻿using Moq;
-using Domain.Models.Products;
+﻿using Domain.Models.Products;
 using Domain.Models.Products.Exceptions;
-using System.Threading.Tasks;
+using Moq;
 using Xunit;
 
 namespace UnitTests.Services.Foundations.Products
@@ -29,10 +28,10 @@ namespace UnitTests.Services.Foundations.Products
                addProductTask.AsTask()
             );
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
             broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
         public async void ShouldThrowValidationExceptionOnAddWhenProductIdIsInvalidAsync()
@@ -60,11 +59,11 @@ namespace UnitTests.Services.Foundations.Products
                 addProductTask.AsTask()
              );
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()),
                 Times.Never());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Theory]
         [InlineData(null)]
@@ -92,10 +91,10 @@ namespace UnitTests.Services.Foundations.Products
             Assert.ThrowsAsync<ProductValidationException>(() =>
                 addProductTask.AsTask());
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -121,10 +120,10 @@ namespace UnitTests.Services.Foundations.Products
             await Assert.ThrowsAsync<ProductValidationException>(() =>
                      addProductTask.AsTask());
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(inputProduct), Times.Never());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
         public async void ShouldThrowValidationExceptionWhenImageUrlIsInvalid()
@@ -149,10 +148,10 @@ namespace UnitTests.Services.Foundations.Products
             await Assert.ThrowsAsync<ProductValidationException>(() =>
                   addProductTask.AsTask());
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(inputProduct), Times.Never());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Theory]
         [InlineData(double.MaxValue + double.MaxValue)]
@@ -181,9 +180,9 @@ namespace UnitTests.Services.Foundations.Products
             await Assert.ThrowsAsync<ProductValidationException>(() =>
                  addProductTask.AsTask());
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(It.IsAny<Product>()), Times.Never());
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
         public async void ShouldThrowValidationExceptionWhenProductIsAlreadyExist()
@@ -201,7 +200,7 @@ namespace UnitTests.Services.Foundations.Products
             var excpectedProductValidationException =
                 new ProductValidationException(alreadyExistProductException);
 
-            this.storageBrokerMock.Setup(broker =>
+            this.storageMock.Setup(broker =>
                 broker.InsertProductAsync(alreadyExistProduct))
                 .ThrowsAsync(duplicatekeyException);
 
@@ -213,11 +212,11 @@ namespace UnitTests.Services.Foundations.Products
             await Assert.ThrowsAsync<ProductValidationException>(() =>
                 addProductTask.AsTask());
 
-            this.storageBrokerMock.Verify(broker =>
+            this.storageMock.Verify(broker =>
                 broker.InsertProductAsync(alreadyExistProduct),
                 Times.Once());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.storageMock.VerifyNoOtherCalls();
 
         }
 
