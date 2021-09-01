@@ -5,9 +5,9 @@ namespace Application.Services.Fondations.Products
 {
     public partial class ProductService
     {
-        public void ValidateProductOnRetrieve(IQueryable<Product> products)
+        public void ValidateStorageProducts(IQueryable<Product> products)
         {
-            if (products.Count() == 0)
+            if (!products.Any())
             {
                 logging.LogWarning("No Products found in storage.");
             }

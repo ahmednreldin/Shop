@@ -47,7 +47,7 @@ namespace Application.Services.Fondations.Products
         public IQueryable<Product> RetrieveAllProducts()
         {
             IQueryable<Product> products = this.Storage.SelectAllProducts();
-            ValidateProductOnRetrieve(products);
+            ValidateStorageProducts(products);
             return products;
         }
 
