@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Models.Products;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Domain.Models.Products;
-using System.Threading.Tasks;
-using System.Linq;
-using System;
 
 namespace Application.Storages
 {
@@ -18,6 +15,6 @@ namespace Application.Storages
 
             return entityEntry.Entity;
         }
-        public IQueryable<Product> SelectAllProducts() => throw new NotImplementedException();
+        public IQueryable<Product> SelectAllProducts() => this.Products.AsQueryable();
     }
 }

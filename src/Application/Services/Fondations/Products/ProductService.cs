@@ -1,10 +1,7 @@
 ﻿using Application.Storages;
 using Domain.Models.Products;
 using Domain.Models.Products.Exceptions;
-using System;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Services.Fondations.Products
 {
@@ -46,7 +43,7 @@ namespace Application.Services.Fondations.Products
 
         public IQueryable<Product> RetrieveAllProducts()
         {
-            throw new NotImplementedException();
+            return this.Storage.SelectAllProducts();
         }
 
         private static ProductValidationException CreateValidationException(Exception exception)

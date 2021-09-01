@@ -1,10 +1,7 @@
-﻿using FluentAssertions;
+﻿using Domain.Models.Products;
+using FluentAssertions;
 using Moq;
-using Domain.Models.Products;
-using System.Threading.Tasks;
 using Xunit;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace UnitTests.Services.Foundations.Products
 {
@@ -37,19 +34,19 @@ namespace UnitTests.Services.Foundations.Products
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
         [Fact]
-        public  void ShouldRetrieveAllProducts()
+        public void ShouldRetrieveAllProducts()
         {
             // Given
             IQueryable<Product> randomProduct = CreateRandomProducts();
             IQueryable<Product> storageProducts = randomProduct;
             IQueryable<Product> expectedProducts = storageProducts;
 
-            this.storageBrokerMock.Setup(broker => 
+            this.storageBrokerMock.Setup(broker =>
                 broker.SelectAllProducts())
                 .Returns(storageProducts);
 
             // When
-            IQueryable<Product> actualProducts = 
+            IQueryable<Product> actualProducts =
                 this.productService.RetrieveAllProducts();
 
             // Then 
