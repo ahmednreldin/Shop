@@ -5,7 +5,7 @@ namespace Application.Storages
     public partial interface IStorage
     {
         ValueTask<Product> InsertProductAsync(Product product);
-        ValueTask<Product> SelectProductById(Guid productId);
+        ValueTask<Product> SelectProductByIdAsync(Guid productId);
         IQueryable<Product> SelectAllProducts();
     }
 }

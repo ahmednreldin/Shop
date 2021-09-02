@@ -18,7 +18,7 @@ namespace Application.Storages
         public IQueryable<Product> SelectAllProducts() =>
             this.Products.AsQueryable();
 
-        public ValueTask<Product> SelectProductById(Guid productId) =>
+        public ValueTask<Product> SelectProductByIdAsync(Guid productId) =>
             this.Products.FindAsync(productId);
     }
 }

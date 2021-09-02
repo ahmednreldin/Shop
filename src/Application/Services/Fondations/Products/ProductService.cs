@@ -44,9 +44,10 @@ namespace Application.Services.Fondations.Products
 
         }
 
-        public ValueTask<Product> RetrieveProductById(Guid productId)
+        public async ValueTask<Product> RetrieveProductByIdAsync(Guid productId)
         {
-            throw new NotImplementedException();
+            Product product = await this.Storage.SelectProductByIdAsync(productId);
+            return product;
         }
 
         public IQueryable<Product> RetrieveAllProducts()

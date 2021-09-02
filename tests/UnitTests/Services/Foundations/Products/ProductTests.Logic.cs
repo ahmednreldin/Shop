@@ -58,7 +58,7 @@ namespace UnitTests.Services.Foundations.Products
             this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
-        public void ShouldRetrieveProductById()
+        public async void ShouldRetrieveProductById()
         {
             // Given
             Product randomProduct = CreateRandomProduct();
@@ -67,18 +67,18 @@ namespace UnitTests.Services.Foundations.Products
             Guid productId = expectedProduct.ProductId;
 
             this.storageMock.Setup(storage =>
-            storage.SelectProductById(productId))
+            storage.SelectProductByIdAsync(productId))
                 .ReturnsAsync(storageProduct);
 
             // When
-            ValueTask<Product> actualProduct =
-                this.productService.RetrieveProductById(productId);
+            Product actualProduct =
+               await this.productService.RetrieveProductByIdAsync(productId);
 
             // Then 
             actualProduct.Should().BeEquivalentTo(expectedProduct);
 
             this.storageMock.Verify(storage =>
-            storage.SelectProductById(It.IsAny<Guid>()),
+            storage.SelectProductByIdAsync(It.IsAny<Guid>()),
               Times.Once());
 
             this.storageMock.VerifyNoOtherCalls();
