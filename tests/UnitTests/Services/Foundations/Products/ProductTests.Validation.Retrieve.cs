@@ -9,31 +9,48 @@ namespace UnitTests.Services.Foundations.Products
     public partial class ProductTests
     {
         [Fact]
-        public void ShouldLogWarningOnRetrieveWhenProductIdIsInvalidAndLogIt()
+        public void ShouldThrowValidationExceptionOnRetrieveWhenProductIdIsInvalid()
         {
             // Given
-            Product randomProduct = CreateRandomProduct();
-            Product inputProduct = randomProduct;
-            inputProduct.ProductId = Guid.Empty;
-
-            var invalidProductException = new InvalidProductException(
-                parameterName: nameof(inputProduct.ProductId),
-                parameterValue: inputProduct.ProductId);
-
-            var expectedValidationException =
-                new ProductValidationException(invalidProductException);
+            Guid randomProductId = default;
+            Guid inputProductId = randomProductId;
 
             // When 
-            ValueTask<Product> actualProductTask =
-                   this.productService.RetrieveProductByIdAsync(inputProduct.ProductId);
+            ValueTask<Product> retrieveProductByIdTask =
+                   this.productService.RetrieveProductByIdAsync(inputProductId);
 
             // Then
             Assert.ThrowsAsync<ProductValidationException>(() =>
-               actualProductTask.AsTask());
+               retrieveProductByIdTask.AsTask());
 
             this.storageMock.Verify(storage =>
             storage.SelectProductByIdAsync(It.IsAny<Guid>()),
             Times.Never());
+
+            this.storageMock.VerifyNoOtherCalls();
+        }
+        [Fact]
+        public async void ShouldThrowProductValidationExceptionOnRetrieveWhenStorageProductIsNullAsync()
+        {
+            // Given
+            Guid randomProductId = Guid.NewGuid();
+            Guid inputProductId = randomProductId;
+            Product invalidStorageProduct = null;
+
+            this.storageMock.Setup(storage =>
+            storage.SelectProductByIdAsync(inputProductId)).ReturnsAsync(invalidStorageProduct);
+
+            // When
+            ValueTask<Product> retrieveProductByIdTask =
+                this.productService.RetrieveProductByIdAsync(inputProductId);
+
+            // Then
+            await Assert.ThrowsAsync<ProductValidationException>(() =>
+                retrieveProductByIdTask.AsTask()
+            );
+
+            this.storageMock.Verify(storage =>
+            storage.SelectProductByIdAsync(It.IsAny<Guid>()), Times.Once());
 
             this.storageMock.VerifyNoOtherCalls();
         }

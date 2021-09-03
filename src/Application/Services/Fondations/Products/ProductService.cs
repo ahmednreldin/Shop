@@ -56,11 +56,20 @@ namespace Application.Services.Fondations.Products
                 }
 
                 Product product = await this.Storage.SelectProductByIdAsync(productId);
+
+                if (product == null)
+                    throw new NotFoundProductException(productId);
+
+
                 return product;
             }
             catch (InvalidProductException invalidProductException)
             {
                 throw CreateValidationException(invalidProductException);
+            }
+            catch (NotFoundProductException notFoundProductException)
+            {
+                throw CreateValidationException(notFoundProductException);
             }
 
         }
