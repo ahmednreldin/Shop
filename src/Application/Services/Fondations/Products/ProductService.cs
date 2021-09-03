@@ -46,8 +46,23 @@ namespace Application.Services.Fondations.Products
 
         public async ValueTask<Product> RetrieveProductByIdAsync(Guid productId)
         {
-            Product product = await this.Storage.SelectProductByIdAsync(productId);
-            return product;
+            try
+            {
+                if (productId == Guid.Empty)
+                {
+                    throw new InvalidProductException(
+                        parameterName: nameof(productId),
+                        parameterValue: productId);
+                }
+
+                Product product = await this.Storage.SelectProductByIdAsync(productId);
+                return product;
+            }
+            catch (InvalidProductException invalidProductException)
+            {
+                throw CreateValidationException(invalidProductException);
+            }
+
         }
 
         public IQueryable<Product> RetrieveAllProducts()
