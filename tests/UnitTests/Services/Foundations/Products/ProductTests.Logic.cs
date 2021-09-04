@@ -83,6 +83,27 @@ namespace UnitTests.Services.Foundations.Products
 
             this.storageMock.VerifyNoOtherCalls();
         }
+        [Fact]
+        public void ShouldUpdeateProductAsync()
+        {
+            // Given
+            Product randomProduct = CreateRandomProduct();
+            Product updatedProduct = randomProduct;
+            Product storageProduct = updatedProduct;
+
+            this.storageMock.Setup(storage =>
+            storage.UpdateProductAsync(updatedProduct))
+                .ReturnsAsync(storageProduct);
+
+            // When
+            ValueTask<Product> product = this.productService.ModifyProductAsync(updatedProduct);
+
+            // Then 
+            this.storageMock.Verify(storage =>
+            storage.UpdateProductAsync(updatedProduct), Times.Once());
+
+            this.storageMock.VerifyNoOtherCalls();
+        }
 
     }
 }

@@ -20,5 +20,13 @@ namespace Application.Storages
 
         public ValueTask<Product> SelectProductByIdAsync(Guid productId) =>
             this.Products.FindAsync(productId);
+
+        public async ValueTask<Product> UpdeateProductAsync(Product product)
+        {
+            EntityEntry<Product> productEntityEntry = this.Products.Update(product);
+            await this.SaveChangesAsync();
+
+            return productEntityEntry.Entity;
+        }
     }
 }

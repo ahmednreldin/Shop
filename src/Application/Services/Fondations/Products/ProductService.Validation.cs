@@ -5,6 +5,22 @@ namespace Application.Services.Fondations.Products
 {
     public partial class ProductService
     {
+        private static void ValidateStorageProduct(Guid productId, Product storageProduct)
+        {
+            if (storageProduct == null)
+                throw new NotFoundProductException(productId);
+        }
+
+        private static void ValidateProductId(Guid productId)
+        {
+            if (productId == Guid.Empty)
+            {
+                throw new InvalidProductException(
+                    parameterName: nameof(productId),
+                    parameterValue: productId);
+            }
+        }
+
         public void ValidateStorageProducts(IQueryable<Product> products)
         {
             if (!products.Any())

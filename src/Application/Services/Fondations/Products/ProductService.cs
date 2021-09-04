@@ -48,20 +48,13 @@ namespace Application.Services.Fondations.Products
         {
             try
             {
-                if (productId == Guid.Empty)
-                {
-                    throw new InvalidProductException(
-                        parameterName: nameof(productId),
-                        parameterValue: productId);
-                }
+                ValidateProductId(productId);
 
-                Product product = await this.Storage.SelectProductByIdAsync(productId);
+                Product storageProduct = await this.Storage.SelectProductByIdAsync(productId);
 
-                if (product == null)
-                    throw new NotFoundProductException(productId);
+                ValidateStorageProduct(productId, storageProduct);
 
-
-                return product;
+                return storageProduct;
             }
             catch (InvalidProductException invalidProductException)
             {
@@ -79,6 +72,11 @@ namespace Application.Services.Fondations.Products
             IQueryable<Product> products = this.Storage.SelectAllProducts();
             ValidateStorageProducts(products);
             return products;
+        }
+
+        public ValueTask<Product> ModifyProductAsync(Product product)
+        {
+            throw new NotImplementedException();
         }
 
         private static ProductValidationException CreateValidationException(Exception exception)
