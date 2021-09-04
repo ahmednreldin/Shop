@@ -1,5 +1,6 @@
 ﻿using Domain.Models.Products;
 using FluentAssertions;
+using Force.DeepCloner;
 using Moq;
 using Xunit;
 
@@ -84,23 +85,39 @@ namespace UnitTests.Services.Foundations.Products
             this.storageMock.VerifyNoOtherCalls();
         }
         [Fact]
-        public void ShouldUpdeateProductAsync()
+        public async void ShouldModifyProductAsync()
         {
             // Given
             Product randomProduct = CreateRandomProduct();
-            Product updatedProduct = randomProduct;
-            Product storageProduct = updatedProduct;
+            Product inputProduct = randomProduct;
+            Product afterUpdateStorageProduct = inputProduct;
+            Product expectedProduct = afterUpdateStorageProduct;
+            Product beforeUpdateStorageProduct = randomProduct.DeepClone();
+            inputProduct.Name = "UpdateProduct";
+            Guid productId = inputProduct.ProductId;
+
 
             this.storageMock.Setup(storage =>
-            storage.UpdateProductAsync(updatedProduct))
-                .ReturnsAsync(storageProduct);
+                storage.SelectProductByIdAsync(productId))
+                .ReturnsAsync(beforeUpdateStorageProduct);
+
+            this.storageMock.Setup(storage =>
+            storage.UpdateProductAsync(inputProduct))
+                .ReturnsAsync(afterUpdateStorageProduct);
 
             // When
-            ValueTask<Product> product = this.productService.ModifyProductAsync(updatedProduct);
+            Product actualProduct =
+              await this.productService.ModifyProductAsync(inputProduct);
 
             // Then 
+            actualProduct.Should().BeEquivalentTo(expectedProduct);
+
             this.storageMock.Verify(storage =>
-            storage.UpdateProductAsync(updatedProduct), Times.Once());
+                storage.SelectProductByIdAsync(productId), Times.Once());
+
+            this.storageMock.Verify(storage =>
+            storage.UpdateProductAsync(inputProduct),
+            Times.Once());
 
             this.storageMock.VerifyNoOtherCalls();
         }

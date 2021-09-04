@@ -74,9 +74,14 @@ namespace Application.Services.Fondations.Products
             return products;
         }
 
-        public ValueTask<Product> ModifyProductAsync(Product product)
+        public async ValueTask<Product> ModifyProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            Product storageProduct =
+                await this.Storage.SelectProductByIdAsync(product.ProductId);
+            if (storageProduct == null)
+                throw new NotFoundProductException(product.ProductId);
+
+            return await this.Storage.UpdateProductAsync(product);
         }
 
         private static ProductValidationException CreateValidationException(Exception exception)
